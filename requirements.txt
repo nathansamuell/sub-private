@@ -1,0 +1,5 @@
+slycot
+numpy
+scipy
+matplotlib
+control
