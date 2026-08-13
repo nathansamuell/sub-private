@@ -55,7 +55,7 @@ for t in tListMs:
     buoyantVelList.append(newBuoyantVel)
     buoyantAccelList.append(newBuoyantAccel)
 
-plt.plot(np.array(tListMs) / 1000, buoyantVelList)
+plt.plot(np.array(tListMs) / 1000, depthList)
 plt.title("StaticBuoyancySim")
 plt.xlabel("Timestep")
 plt.ylabel("Depth (cm)")
