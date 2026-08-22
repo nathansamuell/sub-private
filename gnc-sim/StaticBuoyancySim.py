@@ -5,6 +5,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# sim depth motor class import
+from SimComponents import SimDepthMotor
+
 IN_TO_CM = 2.54
 GRAV_CONST = 9.81 * 100
 DENSITY_WATER = 1
@@ -34,6 +37,9 @@ depthList: list[np.float] = [newDepth]
 buoyantVelList: list[np.float] = [newBuoyantVel]
 buoyantAccelList: list[np.float] = [newBuoyantAccel]
 
+# create motor at ideal neutral buoyancy
+simMotor = SimDepthMotor(15) # theoretical neutral buoyancy
+ 
 # run sim in ms, 20 ms step size
 stepSize = 20           # ms
 dt = stepSize / 1000    # s
@@ -41,6 +47,10 @@ tListMs = np.arange(0, 10000, stepSize)
 for t in tListMs:
     if t == 0:
         continue
+
+    simMotor.propagate(stepSize, -300)
+    vDisplacedBySub = vCylinder - simMotor.getCurrentVolume()
+    # print(simMotor.getCurrentVolume())
 
     newBuoyantAccel = np.divide(
         np.subtract(np.multiply(mSub, GRAV_CONST), np.multiply(np.multiply(vDisplacedBySub, DENSITY_WATER), GRAV_CONST)),
